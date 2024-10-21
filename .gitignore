@@ -1,2 +1,13 @@
-# Ignorar node_modules solo en la carpeta frontend
-/frontend/node_modules
+
+# Ignorar el entorno virtual del backend
+backend/venv/
+
+# Ignorar node_modules del frontend
+frontend/node_modules/
+
+# Archivos compilados de Python
+backend/__pycache__/
+
+# Archivos de sistema o logs
+*.log
+*.tmp
