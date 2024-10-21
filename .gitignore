@@ -11,3 +11,5 @@ backend/__pycache__/
 # Archivos de sistema o logs
 *.log
 *.tmp
+
+*.vs
