@@ -1,7 +1,6 @@
 import numpy as np
 from model import get_model
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-from tensorflow.keras.callbacks import EarlyStopping
+import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from keras.utils import to_categorical
 from helpers import get_word_ids, get_sequences_and_labels
@@ -12,12 +11,12 @@ def training_model(model_path, epochs=500):
     
     sequences, labels = get_sequences_and_labels(word_ids)
     
-    sequences = pad_sequences(sequences, maxlen=int(MODEL_FRAMES), padding='pre', truncating='post', dtype='float16')
+    sequences = tf.pad_sequences(sequences, maxlen=int(MODEL_FRAMES), padding='pre', truncating='post', dtype='float16')
     
     X = np.array(sequences)
     y = to_categorical(labels).astype(int) 
     
-    early_stopping = EarlyStopping(monitor='accuracy', patience=10, restore_best_weights=True)
+    early_stopping = tf.EarlyStopping(monitor='accuracy', patience=10, restore_best_weights=True)
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.05, random_state=42)
     
     model = get_model(int(MODEL_FRAMES), len(word_ids))
