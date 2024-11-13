@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detección de Señas</title>
+</head>
+<body>
+    <h1>Detección de Lengua de Señas</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <p id="prediction">Predicción: Ninguna</p>
+
+    <script>
+        const video = document.getElementById('video');
+        const predictionElement = document.getElementById('prediction');
+
+        // Solicitar acceso a la cámara
+        navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+            video.srcObject = stream;
+        });
+
+        // Enviar cuadro al servidor cada segundo
+        setInterval(() => {
+            captureFrameAndSend();
+        }, 1000);
+
+        function captureFrameAndSend() {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            canvas.toBlob(blob => {
+                const formData = new FormData();
+                formData.append('frame', blob, 'frame.jpg');
+
+                fetch('/process_frame', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.prediction) {
+                        predictionElement.textContent = `Predicción: ${data.prediction}`;
+                    }
+                });
+            }, 'image/jpeg');
+        }
+    </script>
+</body>
+</html>

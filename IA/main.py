@@ -13,6 +13,25 @@ from helpers import *
 from constants import *
 from text_to_speech import text_to_speech
 
+holistic_model = Holistic()
+model = load_model(MODEL_PATH)
+word_ids = get_word_ids(WORDS_JSON_PATH)
+
+def predict_sign_from_frame(frame):
+    # Preprocesar cuadro para obtener puntos clave
+    results = mediapipe_detection(frame, holistic_model)
+    if not there_hand(results):
+        return None
+    
+    kp_seq = [extract_keypoints(results)]
+    kp_normalized = normalize_keypoints(kp_seq, int(MODEL_FRAMES))
+    res = model.predict(np.expand_dims(kp_normalized, axis=0))[0]
+    
+    # Si la predicción supera el umbral, devuelve la palabra
+    if res[np.argmax(res)] > 0.7:
+        word_id = word_ids[np.argmax(res)].split('-')[0]
+        return words_text.get(word_id)
+    return None
 
 class VideoRecorder(QMainWindow):
     def __init__(self):
