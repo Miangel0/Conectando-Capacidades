@@ -1,0 +1,137 @@
+/* Contenedor principal para el login */
+.login-container {
+  display: flex;
+  height: 100vh; /* Altura completa de la ventana */
+}
+
+/* Sección izquierda (imagen y título) */
+.left-side {
+  flex: 1; /* Ocupa el 50% de la pantalla */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  background-color: #f4f7fc; /* Fondo de la izquierda */
+}
+
+.app-title {
+  position: absolute;
+  top: 20px; /* Alineación en la parte superior */
+  left: 50%;
+  transform: translateX(-50%);
+  color: #1E3A8A;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  z-index: 10;
+}
+
+.login-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que la imagen cubra todo el espacio */
+  transition: all 0.3s ease-in-out; /* Transición suave al cambiar la imagen */
+}
+
+/* Sección derecha (formulario de login) */
+.right-side {
+  flex: 1; /* Ocupa el 50% de la pantalla */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f7fc; /* Color de fondo del formulario */
+}
+
+.login-form-container {
+  width: 100%;
+  max-width: 400px; /* Limitar el ancho del formulario */
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff; /* Fondo blanco para el formulario */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #1E3A8A; /* Azul oscuro */
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Estilo del formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 14px;
+  color: #333;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #1E3A8A; /* Azul de enfoque */
+}
+
+button {
+  padding: 12px;
+  background-color: #1E3A8A;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #2563EB; /* Azul más fuerte */
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Media Query para pantallas móviles */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column; /* Coloca las secciones en una sola columna */
+  }
+
+  .left-side, .right-side {
+    flex: none;
+    width: 100%; /* Las secciones ocupan todo el ancho */
+    height: 50vh; /* Ajusta la altura */
+  }
+
+  .login-form-container {
+    padding: 15px; /* Reduce el padding del formulario */
+    max-width: 100%; /* El formulario ocupa todo el ancho disponible */
+  }
+
+  h2 {
+    font-size: 20px; /* Ajusta el tamaño de la fuente */
+  }
+
+  input, button {
+    font-size: 14px; /* Reduce el tamaño de los inputs y botones */
+    padding: 8px; /* Ajusta el padding */
+  }
+}
