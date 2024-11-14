@@ -1,56 +1,78 @@
-/* Estilos para el Dashboard */
+/* Estilos generales del Dashboard */
 .dashboard-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* Esto asegura que la pantalla ocupe toda la altura */
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #007BFF;
-    color: white;
-    padding: 20px;
-  }
-  
-  .logo-img {
-    width: 150px;
-    height: auto;
-  }
-  
-  .navbar ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar ul li {
-    margin-left: 20px;
-  }
-  
-  .navbar ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar ul li a:hover {
-    color: #FFD700; /* Cambiar color al pasar el mouse */
-  }
-  
-  .search-bar input {
-    padding: 5px 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  /* Dashboard.css */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Barra superior del Dashboard */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #091967; /* Cambiar el fondo de la barra superior */
+  color: white;
+  padding: 20px;
+}
+
+/* Logo */
+.logo-img {
+  width: 150px;
+  height: auto;
+}
+
+/* Dashboard.css */
+
+/* Contenedor de la barra de navegación */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Distribuye los elementos a ambos extremos */
+  align-items: center; /* Alinea verticalmente los elementos */
+  flex-wrap: wrap; /* Asegura que los elementos no salgan del contenedor */
+  margin-right: 20px;
+}
+
+/* Contenedor de las pestañas de navegación */
+.navbar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-grow: 1; /* Hace que ocupe el espacio disponible */
+  justify-content: flex-start; /* Alinea las pestañas a la izquierda */
+}
+
+/* Pestañas individuales */
+.navbar ul li {
+  margin-left: 20px;
+}
+
+/* Estilo de los enlaces */
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+  color: #FFD700;
+}
+
+/* Barra de búsqueda */
+.search-bar {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 250px; /* Ajuste el ancho según sea necesario */
+  margin-left: 20px;
+}
+
+/* Cuerpo del Dashboard */
 .dashboard-body {
-  /*background-image: url('/assets/images/background.jpg'); /* Asegúrate de que la ruta comience con '/' */
+  flex-grow: 1; /* Para que el cuerpo ocupe todo el espacio disponible */
+  /*background-image: url('/assets/images/background.jpg'); /* Ruta de la imagen de fondo */
   background-size: cover;
   background-position: center;
   color: white;
@@ -62,37 +84,39 @@
   flex-direction: column;
 }
 
-  
-  
-  
-  .dashboard-body h2 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-  }
-  
-  .dashboard-body p {
-    font-size: 1.5rem;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .footer {
-    padding: 20px;
-    background-color: #333;
-    text-align: center;
-  }
-  
-  .btn-ver-mas {
-    padding: 10px 20px;
-    background-color: #FFD700;
-    color: #333;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn-ver-mas:hover {
-    background-color: #FFC107;
-  }
+.dashboard-body h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.dashboard-body p {
+  font-size: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Pie de página */
+.footer {
+  padding: 20px;
+  background-color: #091967; /* Cambiar el fondo del pie de página */
+  text-align: center;
+}
+
+/* Botón Ver más */
+.btn-ver-mas {
+  padding: 10px 20px;
+  background-color: #091967; /* Cambiar el fondo del botón */
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-ver-mas:hover {
+  background-color: #0c2b76;  /* Un tono más oscuro cuando se pasa el ratón */
+}
+
+
+

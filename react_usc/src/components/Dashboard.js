@@ -1,41 +1,42 @@
+import React, { useState } from 'react';
+import './Dashboard.css';
+import Chat from './Chat';  // Importa el componente Chat
 
-import React from 'react';
-import './Dashboard.css'; 
 function Dashboard() {
+  const [showChat, setShowChat] = useState(false); // Estado para mostrar/ocultar el chat
+
+  const toggleChat = () => {
+    setShowChat(!showChat); // Cambia el estado para mostrar/ocultar el chat
+  };
+
   return (
     <div className="dashboard-container">
-      {/* Header */}
       <header className="header">
-        <div className="logo">
-          {/* Aquí puedes agregar el logo de la aplicación */}
-          <img src="./assets/images/logo.png" alt="Logo" className="logo-img" />
-        </div>
+        <img src="/assets/images/logo.png" alt="Logo" className="logo-img" />
         <nav className="navbar">
           <ul>
-            <li><a href="/">INICIO</a></li>
-            <li><a href="/nosotros">NOSOTROS</a></li>
-            <li><a href="/lenguaje-de-senas">LENGUAJE DE SEÑAS</a></li>
-            <li><a href="/blog">BLOG</a></li>
-            <li>
-              <div className="search-bar">
-                <input type="text" placeholder="Buscar..." />
-              </div>
-            </li>
+            <li><a href="#">INICIO</a></li>
+            <li><a href="#">NOSOTROS</a></li>
+            <li><a href="#">LENGUAJE DE SEÑAS</a></li>
+            <li><a href="#">BLOG</a></li>
           </ul>
+          <input className="search-bar" placeholder="Buscar..." />
         </nav>
       </header>
 
-      {/* Cuerpo del dashboard */}
       <div className="dashboard-body">
-        <div className="content">
-          <h2>Bienvenido al Dashboard</h2>
-          <p>Este es el área principal de la aplicación, donde podrás acceder a más información.</p>
-        </div>
+        <h2>Bienvenido al Dashboard</h2>
+        <p>Aquí puedes interactuar con diferentes funcionalidades.</p>
+        
+        {/* Mostrar el chat solo si el estado showChat es true */}
+        {showChat && <Chat />}  
       </div>
 
-      {/* Footer */}
       <footer className="footer">
-        <button className="btn-ver-mas">Ver más</button>
+        {/* Cambiar el texto del botón a "Abrir chat" */}
+        <button onClick={toggleChat} className="btn-ver-mas">
+          {showChat ? 'Cerrar chat' : 'Abrir chat'}
+        </button>
       </footer>
     </div>
   );
