@@ -1,5 +1,10 @@
 {
-    "words_ids":[
+    "word_ids":[
+        
+        "buenos_dias"
+    ],
+
+    "word_ids1":[
         "adios",
         "bien",
         "buenas_noches",
@@ -16,3 +21,5 @@
         "por_favor"
     ]
 }
+
+
