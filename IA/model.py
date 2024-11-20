@@ -16,3 +16,4 @@ def get_model(max_length_frames, output_length: int):
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     
     return model
+
