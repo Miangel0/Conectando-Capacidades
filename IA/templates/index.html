@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Translator</title>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Sign Language Translator</h1>
+    <video id="video" autoplay playsinline width="640" height="480"></video>
+    <p id="result">Detected word: <span id="word"></span></p>
+    <script>
+        // Configuración del WebSocket
+        const socket = io.connect('http://127.0.0.1:5000');
+
+        // Elementos del DOM
+        const video = document.getElementById('video');
+        const wordElement = document.getElementById('word');
+
+        // Acceder a la cámara
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+
+                // Capturar y enviar frames periódicamente
+                setInterval(() => {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const frameData = canvas.toDataURL('image/jpeg'); // Convertir el frame a Base64
+                    socket.emit('send_frame', frameData); // Enviar el frame al backend
+                }, 100); // Enviar frames cada 100 ms (10 fps aprox)
+            })
+            .catch(err => {
+                console.error('Error accessing camera:', err);
+            });
+
+        // Escuchar el resultado del backend
+        socket.on('receive_result', data => {
+            wordElement.textContent = data.result; // Mostrar la palabra detectada
+        });
+    </script>
+</body>
+</html>
