@@ -1,0 +1,31 @@
+/* Burbuja flotante con fondo dinámico */
+.floating-chat-bubble {
+    position: fixed;
+    bottom: 20px;  /* Alineado a la parte inferior */
+    right: 20px;   /* Alineado a la derecha */
+    padding: 15px 25px;
+    border-radius: 25px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;  /* Asegura que la burbuja esté encima de otros elementos */
+    transition: background-color 0.3s ease, transform 0.3s ease-in-out;
+    
+    background-color: #ff0000f8; /* Fondo predeterminado azul oscuro */
+    color: white;   /* Texto blanco */
+  }
+  
+  /* Cuando la burbuja está sobre un fondo claro */
+  .floating-chat-bubble.light-background {
+    background-color: white;  /* Fondo blanco cuando está sobre un fondo claro */
+    color: #091967;           /* Texto en color oscuro */
+  }
+  
+  /* Efecto hover */
+  .floating-chat-bubble:hover {
+    transform: scale(1.05);  /* Efecto de agrandar al pasar el ratón */
+  }
+  

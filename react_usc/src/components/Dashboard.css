@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden; /* Evita que los elementos se desborden */
 }
 
 /* Barra superior del Dashboard */
@@ -10,26 +11,26 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #091967; /* Cambiar el fondo de la barra superior */
-  color: white;
+  background-color: white; 
+  color: #000000; 
   padding: 20px;
+  z-index: 10; /* Aseguramos que la navbar quede por encima */
 }
 
 /* Logo */
 .logo-img {
-  width: 150px;
-  height: auto;
+  width: 65px;
+  height: 50px;
 }
 
-/* Dashboard.css */
-
-/* Contenedor de la barra de navegación */
+/* Barra de navegación */
 .navbar {
   display: flex;
-  justify-content: space-between; /* Distribuye los elementos a ambos extremos */
-  align-items: center; /* Alinea verticalmente los elementos */
-  flex-wrap: wrap; /* Asegura que los elementos no salgan del contenedor */
-  margin-right: 20px;
+  justify-content: flex-end; /* Alinea los elementos a la derecha */
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px; /* Ajuste el padding para una barra más compacta */
+  background-color: white;
 }
 
 /* Contenedor de las pestañas de navegación */
@@ -38,41 +39,66 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  flex-grow: 1; /* Hace que ocupe el espacio disponible */
-  justify-content: flex-start; /* Alinea las pestañas a la izquierda */
+  gap: 10px; /* Reducimos aún más la distancia entre los enlaces */
 }
 
 /* Pestañas individuales */
 .navbar ul li {
-  margin-left: 20px;
+  margin: 0;
 }
 
-/* Estilo de los enlaces */
+/* Estilo de los enlaces dentro de .navbar */
 .navbar ul li a {
-  color: white;
+  color: #000000 !important; /* Color negro para los enlaces */
   text-decoration: none;
   font-size: 16px;
   transition: color 0.3s ease;
+  padding: 8px 12px; /* Ajustamos el padding para hacer los enlaces más compactos */
 }
 
+/* Efecto hover para los enlaces */
 .navbar ul li a:hover {
-  color: #FFD700;
+  color: #FFD700; /* Color dorado cuando el ratón pasa sobre el enlace */
 }
+
 
 /* Barra de búsqueda */
 .search-bar {
-  padding: 5px 10px;
+  padding: 10px 15px;
   font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 250px; /* Ajuste el ancho según sea necesario */
+  border-radius: 25px;
+  width: 250px;
   margin-left: 20px;
+  outline: none;
+}
+
+.search-bar:focus {
+  border-color: #ff5733;
 }
 
 /* Cuerpo del Dashboard */
 .dashboard-body {
-  flex-grow: 1; /* Para que el cuerpo ocupe todo el espacio disponible */
-  /*background-image: url('/assets/images/background.jpg'); /* Ruta de la imagen de fondo */
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+  height: calc(100vh - 160px); /* Ajuste de altura para respetar navbar y footer */
+  display: flex;  /* Necesario para organizar las secciones de manera vertical */
+  flex-direction: column;
+}
+
+/* Contenedor interno para el contenido (donde ocurre la animación de deslizamiento) */
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: transform 0.6s ease-out;
+  height: 100%;
+}
+
+/* Sección principal: CONECTANDO CAPACIDADES */
+.main-content {
+  background-image: url('../../public/assets/images/dashboard.png');
   background-size: cover;
   background-position: center;
   color: white;
@@ -82,30 +108,50 @@
   align-items: center;
   text-align: center;
   flex-direction: column;
+  height: 100%; /* Para que ocupe toda la altura del cuerpo */
 }
 
-.dashboard-body h2 {
+.main-content h2 {
   font-size: 3rem;
   margin-bottom: 20px;
 }
 
-.dashboard-body p {
+.main-content p {
   font-size: 1.5rem;
   max-width: 600px;
   margin: 0 auto;
 }
 
+/* Nueva sección: Nuestra Historia */
+.extra-content {
+  background-color: #f0f0f0;
+  color: #091967;
+  padding: 40px;
+  font-size: 1.2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Animación de deslizamiento hacia arriba */
+.dashboard-body.slide-up .dashboard-content {
+  transform: translateY(-3%); /* Desplazamiento hacia arriba solo para el contenido */
+}
+
 /* Pie de página */
 .footer {
   padding: 20px;
-  background-color: #091967; /* Cambiar el fondo del pie de página */
+  background-color: #091967;
   text-align: center;
+  color: white;
 }
 
-/* Botón Ver más */
+/* Botón "Ver más" */
 .btn-ver-mas {
   padding: 10px 20px;
-  background-color: #091967; /* Cambiar el fondo del botón */
+  background-color: #091967;
   color: white;
   font-size: 16px;
   border: none;
@@ -115,8 +161,6 @@
 }
 
 .btn-ver-mas:hover {
-  background-color: #0c2b76;  /* Un tono más oscuro cuando se pasa el ratón */
+  background-color: #0c2b76;
+  transform: scale(1.05);
 }
-
-
-

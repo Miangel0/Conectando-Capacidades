@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Dashboard.css';
-import Chat from './Chat';  // Importa el componente Chat
+import Burbuja_chat from './Burbuja_chat';
 
 function Dashboard() {
-  const [showChat, setShowChat] = useState(false); // Estado para mostrar/ocultar el chat
+  const location = useLocation();
+  const isChatPage = location.pathname === '/chat';
 
-  const toggleChat = () => {
-    setShowChat(!showChat); // Cambia el estado para mostrar/ocultar el chat
+  // Estado para controlar si se ha hecho clic en "Ver más"
+  const [showMore, setShowMore] = useState(false);
+
+  const handleShowMore = () => {
+    setShowMore(true); // Al hacer clic, muestra la nueva sección
   };
 
   return (
     <div className="dashboard-container">
+      {/* Barra de navegación */}
       <header className="header">
-        <img src="/assets/images/logo.png" alt="Logo" className="logo-img" />
+        <img src="/assets/images/logo_F.png" alt="Logo" className="logo-img" />
         <nav className="navbar">
           <ul>
             <li><a href="#">INICIO</a></li>
@@ -24,20 +30,44 @@ function Dashboard() {
         </nav>
       </header>
 
-      <div className="dashboard-body">
-        <h2>Bienvenido al Dashboard</h2>
-        <p>Aquí puedes interactuar con diferentes funcionalidades.</p>
-        
-        {/* Mostrar el chat solo si el estado showChat es true */}
-        {showChat && <Chat />}  
+      {/* Cuerpo del Dashboard */}
+      <div className={`dashboard-body ${showMore ? 'slide-up' : ''}`}>
+        <div className="dashboard-content">
+          {/* Sección inicial: CONECTANDO CAPACIDADES */}
+          {!showMore && (
+            <div className="main-content">
+              <h2>CONECTANDO CAPACIDADES</h2>
+              <p>
+                Este es el contenido de la primera sección, con fondo y todo.
+                {/* Puedes agregar más contenido aquí */}
+              </p>
+            </div>
+          )}
+
+          {/* Nueva sección: Nuestra Historia */}
+          {showMore && (
+            <div className="extra-content">
+              <h3>NUESTRA HISTORIA</h3>
+              <p>
+                Conectando Capacidades es un proyecto innovador que se enfoca en el diseño y desarrollo de una aplicación web para apoyar a personas con discapacidad auditiva...
+                {/* Continúa con tu contenido aquí */}
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
-      <footer className="footer">
-        {/* Cambiar el texto del botón a "Abrir chat" */}
-        <button onClick={toggleChat} className="btn-ver-mas">
-          {showChat ? 'Cerrar chat' : 'Abrir chat'}
-        </button>
-      </footer>
+      {/* Footer */}
+      {!isChatPage && (
+        <footer className="footer">
+          <button className="btn-ver-mas" onClick={handleShowMore}>
+            Ver más
+          </button>
+        </footer>
+      )}
+
+      {/* Burbuja de chat */}
+      {!isChatPage && <Burbuja_chat />}
     </div>
   );
 }

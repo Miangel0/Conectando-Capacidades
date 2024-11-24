@@ -41,18 +41,19 @@
   justify-content: center;
   align-items: center;
   background-color: #f4f7fc; /* Color de fondo del formulario */
+  padding: 40px; /* Añadimos un poco de espacio a la derecha */
 }
 
 .login-form-container {
   width: 100%;
-  max-width: 400px; /* Limitar el ancho del formulario */
+  max-width: 600px; /* Ampliamos el ancho máximo del formulario */
   padding: 20px;
   border-radius: 8px;
   background-color: #fff; /* Fondo blanco para el formulario */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+.logo-and-title h2 {
   text-align: center;
   color: #1E3A8A; /* Azul oscuro */
   font-size: 24px;
@@ -64,6 +65,12 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+.login-form success-message {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: red;
 }
 
 .form-group {
@@ -90,7 +97,7 @@ input:focus {
 
 button {
   padding: 12px;
-  background-color: #1E3A8A;
+  background-color: #003d8a;
   color: white;
   border: none;
   border-radius: 4px;
@@ -99,7 +106,7 @@ button {
 }
 
 button:hover {
-  background-color: #2563EB; /* Azul más fuerte */
+  background-color: #031a3c; /* Azul más fuerte */
 }
 
 .error-message {
@@ -108,24 +115,178 @@ button:hover {
   margin-top: 10px;
   text-align: center;
 }
+.success-message {
+  color: rgb(7, 184, 25);
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Media Query para pantallas móviles */
+
+
+/* Estilo para el enlace de "Recuperar contraseña" */
+
+/* Estilo para el enlace de "Registrarme" */
+.register-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-block;
+  margin-left: auto; /* espacio entre "No tengo una cuenta," y "Registrarme" */
+}
+
+/* Contenedor de contraseña con enlace */
+.password-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Asegura que el input ocupe el ancho disponible */
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+}
+
+/* Estilo para el label de contraseña */
+.password-label {
+  display: flex; /* Usamos Flexbox */
+  justify-content: space-between; /* Alinea el texto y el enlace */
+  align-items: center; /* Alinea verticalmente el texto y el enlace */
+  width: 100%;
+}
+
+/* Estilo del enlace "Recuperar contraseña" */
+.forgot-password-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-block;
+  margin-left: auto;
+  text-align: right;
+}
+
+.button-back {
+  display: flex;
+  justify-content: center; /* Alinea el botón horizontalmente */
+  align-items: center; /* Alinea el botón verticalmente */
+  height: 10vh;
+}
+
+/* Asegúrate de que el botón "Volver al login" solo esté visible en el formulario de recuperación */
+.button-back button {
+  background-color: #c6c6c6;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: auto;
+  padding: 10px 20px;
+  color: white;
+}
+
+.button-back button:hover {
+  background-color: #7575769e;
+}
+
+/* Estilo para organizar los campos en dos columnas */
+.two-column-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+  gap: 20px; /* Espacio entre las columnas */
+}
+
+/* Asegúrate de que los campos de la segunda columna tengan un ancho adecuado */
+.two-column-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Para pantallas pequeñas, convertir los campos en una sola columna */
+
+
+
+select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  background-color: #fff; /* Fondo blanco para los select */
+  appearance: none; /* Elimina la flecha predeterminada en algunos navegadores */
+  -webkit-appearance: none; /* Elimina la flecha predeterminada en Webkit */
+  -moz-appearance: none; /* Elimina la flecha predeterminada en Firefox */
+}
+
+select:focus {
+  border-color: #1E3A8A; /* Azul de enfoque */
+}
+
+select option {
+  font-size: 16px;
+}
+
+/* Estilos generales */
+.app-logo {
+  width: 80px;  /* Ajusta el tamaño del logo */
+  height: auto;
+  display: block;
+  margin: 0 auto 20px; /* Centra el logo y agrega un espacio debajo */
+}
+
+.logo-and-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo-and-title h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-top: 10px;
+}
+
+/* Resto de estilos */
+
+/* Estilo para mensaje de éxito (azul) */
+.success-message {
+  color: #007bff;
+  font-size: 16px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* Estilo para mensaje de error (rojo) */
+.error-message {
+  color: red;
+  font-size: 16px;
+  margin-top: 15px;
+  text-align: center;
+}
 
 /* Media Query para pantallas móviles */
 @media (max-width: 768px) {
+  /* Estilos generales para la pantalla móvil */
   .login-container {
     flex-direction: column; /* Coloca las secciones en una sola columna */
   }
 
-  .left-side, .right-side {
-    flex: none;
-    width: 100%; /* Las secciones ocupan todo el ancho */
-    height: 50vh; /* Ajusta la altura */
+  .left-side {
+    display: none; /* Oculta la sección de la imagen (left-side) */
+  }
+
+  .right-side, .login-form-container {
+    width: 100%; /* Asegura que el formulario ocupe toda la pantalla */
+    padding: 15px; /* Ajusta el padding del formulario */
   }
 
   .login-form-container {
-    padding: 15px; /* Reduce el padding del formulario */
     max-width: 100%; /* El formulario ocupa todo el ancho disponible */
   }
 
+  /* Ajustes de texto */
   h2 {
     font-size: 20px; /* Ajusta el tamaño de la fuente */
   }
@@ -134,4 +295,13 @@ button:hover {
     font-size: 14px; /* Reduce el tamaño de los inputs y botones */
     padding: 8px; /* Ajusta el padding */
   }
+
+  /* Ajustes para el formulario de dos columnas */
+  .two-column-form {
+    grid-template-columns: 1fr; /* Los campos se apilan en una sola columna */
+  }
 }
+
+
+
+
