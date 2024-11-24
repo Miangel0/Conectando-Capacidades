@@ -4,8 +4,15 @@ import cv2
 import numpy as np
 from PIL import Image
 import io
+from flask_sock import Sock
+from IA.server import predict_sign_from_frame
+from IA.helpers import *
+from IA.constants import *
+
+
 
 app = Flask(__name__)
+sock = Sock(app)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -38,17 +45,25 @@ def add_user():
         mysql.connection.commit()
         return('Ha sido ingresado exitosamente')
 
-@app.route('/process_frame', methods=['POST'])
-def process_frame_endpoint():
+@sock.route('/process_frame')
+def process_frame_ws(ws):
     global kp_seq
-    file = request.files['frame'].read()
-    img = Image.open(io.BytesIO(file))
-    frame = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
 
-    # Llamar a la función de predicción
-    prediction, kp_seq = predict_sign_from_frame(frame, kp_seq)
+    while True:
+        # Recibir el frame en formato binario
+        frame_data = ws.receive()
+        if frame_data is None:
+            break
 
-    return jsonify({"prediction": prediction})
+        # Convertir frame binario a imagen y luego a numpy array
+        img = Image.open(io.BytesIO(frame_data))
+        frame = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+
+        # Procesar el frame con el modelo
+        prediction, kp_seq = predict_sign_from_frame(frame, kp_seq)
+        
+        # Enviar la predicción de vuelta al cliente
+        ws.send(json.dumps({"prediction": prediction}))
 
 if __name__ == "__main__":
     app.run(port=3000, debug=True)

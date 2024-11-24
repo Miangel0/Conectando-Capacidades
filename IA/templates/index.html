@@ -1,47 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Language Translator</title>
-    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    <title>Webcam Streamer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
 </head>
 <body>
-    <h1>Sign Language Translator</h1>
-    <video id="video" autoplay playsinline width="640" height="480"></video>
-    <p id="result">Detected word: <span id="word"></span></p>
+    <h1>Webcam Streamer</h1>
+    <video id="video" autoplay></video>
     <script>
-        // Configuración del WebSocket
-        const socket = io.connect('http://127.0.0.1:5000');
+        var socket = io();
+        var video = document.getElementById('video');
+        var mediaStream;
 
-        // Elementos del DOM
-        const video = document.getElementById('video');
-        const wordElement = document.getElementById('word');
-
-        // Acceder a la cámara
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+            .then(function(stream) {
+                mediaStream = stream;
                 video.srcObject = stream;
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-
-                // Capturar y enviar frames periódicamente
-                setInterval(() => {
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    const frameData = canvas.toDataURL('image/jpeg'); // Convertir el frame a Base64
-                    socket.emit('send_frame', frameData); // Enviar el frame al backend
-                }, 100); // Enviar frames cada 100 ms (10 fps aprox)
+                video.onloadedmetadata = function(e) {
+                    video.play();
+                    sendFrames();
+                };
             })
-            .catch(err => {
-                console.error('Error accessing camera:', err);
+            .catch(function(err) {
+                console.error('Error accessing webcam:', err);
             });
 
-        // Escuchar el resultado del backend
-        socket.on('receive_result', data => {
-            wordElement.textContent = data.result; // Mostrar la palabra detectada
-        });
+        function sendFrames() {
+            var canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            var ctx = canvas.getContext('2d');
+
+            setInterval(function() {
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                var frameData = canvas.toDataURL('image/jpeg', 0.8); // Ajusta la calidad si es necesario
+                socket.emit('frame', frameData);
+            }, 100); // Ajusta el intervalo para controlar la velocidad de fotogramas
+        }
     </script>
 </body>
 </html>

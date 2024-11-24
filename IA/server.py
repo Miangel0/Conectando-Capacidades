@@ -55,6 +55,7 @@ def process_frame(frame, kp_seq, threshold=0.8, margin_frame=1, delay_frames=3):
                     if res[np.argmax(res)] > threshold:
                         word_id = word_ids[np.argmax(res)].split('-')[0]
                         sentence.append(words_text.get(word_id))
+                        print(sentence)
 
                 # Reiniciar después de procesar una seña
                 kp_seq.clear()
