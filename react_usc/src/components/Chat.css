@@ -73,12 +73,7 @@
   }
 
 
-  .video-container {
-  width: 100%;  /* Asegúrate de que ocupe todo el espacio disponible */
-  height: auto;
-  max-width: 600px;  /* Puedes ajustar este tamaño */
-  margin: 20px auto;
-}
+ 
 
 video {
   border: 2px solid #ccc;
@@ -92,7 +87,7 @@ video {
   position: relative;  /* Permite posicionar el botón "X" dentro */
   width: 100%;  /* Asegúrate de que ocupe todo el espacio disponible */
   height: auto;
-  max-width: 600px;  /* Puedes ajustar este tamaño */
+  max-width: 1000px;  /* Puedes ajustar este tamaño */
   margin: 20px auto;
 }
 

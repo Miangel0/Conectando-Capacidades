@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginForm.css';
+import axios from 'axios';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -36,22 +37,33 @@ function LoginForm() {
   };
 
   // Función para manejar el submit del login
-  const handleSubmitLogin = (e) => {
+  const handleSubmitLogin = async (e) => {
     e.preventDefault();
+  
     const emailRegex = /^[a-zA-Z0-9._%+-]+@usc\.edu\.co$/;
     if (!emailRegex.test(email)) {
       setError('Por favor, ingrese un correo válido con el dominio @usc.edu.co.');
       return;
     }
-
-    if (password !== '12345') {
-      setError('La contraseña es incorrecta.');
-      return;
+  
+    try {
+      const response = await axios.post('http://localhost:3000/login', {
+        correo: email,
+        password: password,
+      }, {
+        headers: { 'Content-Type': 'application/json' } // Asegúrate de enviar el contenido como JSON
+      });
+  
+      if (response.status === 200) {
+        setError('');
+        // Redirigir al dashboard o cambiar el estado para indicar que el login fue exitoso
+        navigate('/dashboard');
+      } else {
+        setError(response.data.error || 'Error al iniciar sesión.');
+      }
+    } catch (error) {
+      setError(error.response?.data?.error || 'Error de conexión al servidor.');
     }
-
-    // Si la validación es exitosa, redirigir al Dashboard
-    setError('');
-    navigate('/dashboard');
   };
 
   // Función para manejar el submit de recuperar contraseña
@@ -62,28 +74,36 @@ function LoginForm() {
   };
 
   // Función para manejar el submit de registro
-  const handleSubmitRegistro = (e) => {
+  const handleSubmitRegistro = async (e) => {
     e.preventDefault();
-    
-    // Expresión regular para validar el correo electrónico
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@usc\.edu\.co$/;
-    
-    // Validar correo electrónico
-    if (!emailRegex.test(correo)) {
-      setMessage('Por favor, ingresa un correo electrónico válido con el dominio @usc.edu.co. ');
-      setMessageType('error');
-      return; // Detiene la ejecución si el correo es inválido
-    }
   
-    // Validar que las contraseñas coincidan
-    if (password !== confirmPassword) {
-      setMessage('Las contraseñas no coinciden');
+    try {
+      const response = await axios.post('http://localhost:3000/add_user', {
+        nombres,
+        apellidos,
+        correo,
+        rol,
+        facultad,
+        discapacidad,
+        password,
+      }, {
+        headers: { 'Content-Type': 'application/json' } // Encabezado correcto
+      });
+  
+      if (response.status === 201) { // Cambia 201 si el servidor responde con 200
+        setMessage('Usuario registrado con éxito');
+        setMessageType('success');
+        setFormType('login'); // Redirigir al login
+      } else {
+        setMessage(response.data.message || 'Error al registrar usuario.');
+        setMessageType('error');
+      }
+    } catch (error) {
+      setMessage(error.response?.data?.error || 'Error de conexión al servidor.');
       setMessageType('error');
-    } else {
-      setMessage('Usuario registrado con éxito');
-      setMessageType('success');
     }
   };
+  
 
   return (
     <div className="login-container">

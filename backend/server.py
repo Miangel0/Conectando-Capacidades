@@ -1,5 +1,3 @@
-from flask import Flask, request, render_template, Response
-from flask_socketio import SocketIO, emit
 import numpy as np
 import cv2
 from evaluate_model import *
@@ -7,12 +5,8 @@ from keras.models import load_model
 from helpers import *
 from constants import *
 from mediapipe.python.solutions.holistic import Holistic
-import base64
 
 
-app = Flask(__name__)
-
-# Cargar modelo y recursos globalmente para eficiencia
 model = load_model(MODEL_PATH)
 word_ids = get_word_ids(WORDS_JSON_PATH)
 sentence = []
@@ -26,7 +20,6 @@ threshold=0.8
 
 def evaluate_model(src=None, threshold=0.8, margin_frame=1, delay_frames=3):
     kp_seq, sentence = [], []
-    print('hola')
     word_ids = get_word_ids(WORDS_JSON_PATH)
     model = load_model(MODEL_PATH)
     count_frame = 0
@@ -72,8 +65,8 @@ def evaluate_model(src=None, threshold=0.8, margin_frame=1, delay_frames=3):
             
             if not src:
                 # Mostrar la traducción sobre el video
-                cv2.rectangle(frame, (0, 0), (640, 35), (245, 117, 16), -1)
-                cv2.putText(frame, ' | '.join(sentence), FONT_POS, FONT, FONT_SIZE, (255, 255, 255))
+                cv2.rectangle(frame, (0, 0), (960, 35), (245, 117, 16), -1)
+                cv2.putText(frame, ' | '.join(sentence[0:]), FONT_POS, FONT, FONT_SIZE, (255, 255, 255))
                 draw_keypoints(frame, results)
                 
                 # Codificar la imagen en formato JPEG
@@ -85,15 +78,6 @@ def evaluate_model(src=None, threshold=0.8, margin_frame=1, delay_frames=3):
                        b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n\r\n')
         video.release()
         return sentence
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route("/video_feed")
-def video_feed(): 
-    return Response(evaluate_model(),
-                    mimetype="multipart/x-mixed-replace; boundary=frame")
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    
+if __name__ == "__main__":
+    evaluate_model()

@@ -29,12 +29,10 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `role` enum('Profesor','Estudiante') NOT NULL,
-  `faculty` enum('Ingeniería','Derecho','Salud','Educación','Ciencias') NOT NULL,
-  `undergraduate_program` enum('Derecho','Medicina','Ingeniería Civil','Ingeniería de Sistemas','Psicología','Administración de Empresas','Arquitectura','Biología','Educación Infantil','Enfermería','Filosofía','Comunicación Social','Contaduría Pública','Ciencia Política','Ingeniería Electrónica','Ingeniería Mecánica','Ingeniería Industrial','Química','Trabajo Social','Diseño Gráfico') NOT NULL,
   `disability` enum('Auditiva','Ninguna') NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +41,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Miguel Angel','Sandoval Manrique','miguel.sandoval02@usc.edu.co','Trompo12','Estudiante','Ingeniería','Ingeniería de Sistemas','Ninguna'),(2,'Gerardo Ivan','Sandoval Mosquera','miguelsandoman@gmail.com','huykjnkjn','Estudiante','Derecho','Derecho','Auditiva');
+INSERT INTO `users` VALUES (1,'Miguel Angel','Sandoval Manrique','miguel.sandoval02@usc.edu.co','Trompo12','Estudiante','Ninguna'),(2,'Lusi','Esteban','dfbnveasvda@gmail.com','Trompo12','Profesor','Auditiva'),(3,'Santiago','Camacho','santiago.00@usc.edu.co','Trompo12','Profesor','Auditiva');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-24 12:38:13
+-- Dump completed on 2024-11-24 23:21:16
