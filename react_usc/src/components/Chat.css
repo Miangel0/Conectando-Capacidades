@@ -71,4 +71,56 @@
   .chat-send i {
     font-size: 18px;
   }
-  
+
+
+  .video-container {
+  width: 100%;  /* Asegúrate de que ocupe todo el espacio disponible */
+  height: auto;
+  max-width: 600px;  /* Puedes ajustar este tamaño */
+  margin: 20px auto;
+}
+
+video {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
+}
+
+  /* Estilos para el contenedor del video */
+.video-container {
+  position: relative;  /* Permite posicionar el botón "X" dentro */
+  width: 100%;  /* Asegúrate de que ocupe todo el espacio disponible */
+  height: auto;
+  max-width: 600px;  /* Puedes ajustar este tamaño */
+  margin: 20px auto;
+}
+
+.video-element {
+  width: 100%;
+  height: auto;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Estilos para el botón "X" */
+.video-close-btn {
+  position: absolute; /* Posiciona el botón dentro del video */
+  top: 10px;  /* Distancia desde la parte superior */
+  right: 10px;  /* Distancia desde la parte derecha */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.video-close-btn:hover {
+  background-color: rgba(0, 0, 0, 0.7); /* Efecto hover */
+}
