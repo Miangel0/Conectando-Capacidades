@@ -1,42 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Webcam Streamer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-time Sign Detection</title>
 </head>
 <body>
-    <h1>Webcam Streamer</h1>
-    <video id="video" autoplay></video>
-    <script>
-        var socket = io();
-        var video = document.getElementById('video');
-        var mediaStream;
-
-        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-            .then(function(stream) {
-                mediaStream = stream;
-                video.srcObject = stream;
-                video.onloadedmetadata = function(e) {
-                    video.play();
-                    sendFrames();
-                };
-            })
-            .catch(function(err) {
-                console.error('Error accessing webcam:', err);
-            });
-
-        function sendFrames() {
-            var canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            var ctx = canvas.getContext('2d');
-
-            setInterval(function() {
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                var frameData = canvas.toDataURL('image/jpeg', 0.8); // Ajusta la calidad si es necesario
-                socket.emit('frame', frameData);
-            }, 100); // Ajusta el intervalo para controlar la velocidad de fotogramas
-        }
-    </script>
+  <h1>Sign Language Translator</h1>
+  <img src={{ url_for('video_feed') }}>
 </body>
 </html>

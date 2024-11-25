@@ -9,22 +9,24 @@ from evaluate_model import normalize_keypoints
 word_ids = get_word_ids(WORDS_JSON_PATH)
 model = load_model(MODEL_PATH)
 
-def process_frame(frame, kp_seq, threshold=0.8, margin_frame=1, delay_frames=3):
+# Variable global para la secuencia de puntos clave
+kp_seq = []
+
+def predict_sign_from_frame(frame):
     """
-    Procesa un único frame y devuelve una predicción si aplica.
+    Predice la seña basada en un frame.
 
     Args:
-        frame: Un frame capturado (numpy array).
-        kp_seq: Secuencia acumulada de puntos clave (*keypoints*).
-        threshold: Umbral de confianza para clasificar una seña.
-        margin_frame: Margen de frames requeridos para procesar una seña.
-        delay_frames: Frames a ignorar después de procesar una seña.
+        frame: Frame recibido desde el cliente web.
 
     Returns:
-        - La predicción del modelo (si aplica).
-        - La secuencia actualizada de puntos clave (*keypoints*).
+        - Predicción como texto (si aplica).
     """
+    global kp_seq
     sentence = []
+    threshold = 0.8
+    margin_frame = 1
+    delay_frames = 3
     recording = len(kp_seq) > 0
     fix_frames = 0
     count_frame = len(kp_seq)
@@ -58,22 +60,6 @@ def process_frame(frame, kp_seq, threshold=0.8, margin_frame=1, delay_frames=3):
                         print(sentence)
 
                 # Reiniciar después de procesar una seña
-                kp_seq.clear()
+                kp_seq = []
 
-    return sentence, kp_seq
-
-# Ejemplo: Proceso desde servicio web
-def predict_sign_from_frame(frame, kp_seq):
-    """
-    Predice la seña basada en un solo frame y una secuencia de puntos clave.
-
-    Args:
-        frame: Frame recibido desde el cliente web.
-        kp_seq: Secuencia acumulada de puntos clave (*keypoints*).
-
-    Returns:
-        - Predicción como texto (si aplica).
-        - Secuencia actualizada de puntos clave (*keypoints*).
-    """
-    sentence, updated_kp_seq = process_frame(frame, kp_seq)
-    return ' '.join(sentence), updated_kp_seq
+    return ' '.join(sentence)

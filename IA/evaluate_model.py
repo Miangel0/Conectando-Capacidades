@@ -47,12 +47,13 @@ def evaluate_model(src=None, threshold=0.8, margin_frame=1, delay_frames=3):
     
     with Holistic() as holistic_model:
         video = cv2.VideoCapture(src or 0)
-        
+        print(video)
         while video.isOpened():
             ret, frame = video.read()
+            print(frame, ret)
             if not ret: break
-
             results = mediapipe_detection(frame, holistic_model)
+            print(results)
             
             # TODO: colocar un máximo de frames para cada seña,
             # es decir, que traduzca incluso cuando hay mano si se llega a ese máximo.
