@@ -8,8 +8,18 @@ frontend/node_modules/
 # Archivos compilados de Python
 backend/__pycache__/
 
+IA/__pycache__/
+IA/venv/
+
 # Archivos de sistema o logs
 *.log
 *.tmp
 
 *.vs
+
+.vscode
+IA/.test/
+IA/frame_actions/
+IA/data/
+IA/videos/
+IA/.old/
