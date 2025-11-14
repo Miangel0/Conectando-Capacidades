@@ -47,13 +47,10 @@ def evaluate_model(src=None, threshold=0.8, margin_frame=1, delay_frames=3):
     
     with Holistic() as holistic_model:
         video = cv2.VideoCapture(src or 0)
-        print(video)
         while video.isOpened():
             ret, frame = video.read()
-            print(frame, ret)
             if not ret: break
             results = mediapipe_detection(frame, holistic_model)
-            print(results)
             
             # TODO: colocar un máximo de frames para cada seña,
             # es decir, que traduzca incluso cuando hay mano si se llega a ese máximo.
@@ -74,7 +71,6 @@ def evaluate_model(src=None, threshold=0.8, margin_frame=1, delay_frames=3):
                     kp_normalized = normalize_keypoints(kp_seq, int(MODEL_FRAMES))
                     res = model.predict(np.expand_dims(kp_normalized, axis=0))[0]
                     
-                    print(np.argmax(res), f"({res[np.argmax(res)] * 100:.2f}%)")
                     if res[np.argmax(res)] > threshold:
                         word_id = word_ids[np.argmax(res)].split('-')[0]
                         

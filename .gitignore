@@ -7,6 +7,7 @@ frontend/node_modules/
 
 # Archivos compilados de Python
 backend/__pycache__/
+backend/tmp/
 
 IA/__pycache__/
 IA/venv/
